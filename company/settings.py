@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-from decouple import config 
+
 from pathlib import Path
 import os
 import certifi
 import secrets
-from django.core.exceptions import ImproperlyConfigured
+
 from environ import Env
 env = Env()
 env.read_env()
@@ -30,12 +30,12 @@ print(f"\nBASE_DIR:{BASE_DIR}\n")
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', default=default_secret_key)
+SECRET_KEY = os.getenv('SECRET_KEY', default=default_secret_key)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['srinidhimanohar.pythonanywhere.com']
 
 
 # Application definition
@@ -147,5 +147,7 @@ EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'msnidhi5555@gmail.com'
-EMAIL_HOST_PASSWORD =env.str('EMAIL_HOST_PASSWORD', default=default_secret_key)
+EMAIL_HOST_PASSWORD =os.getenv('EMAIL_HOST_PASSWORD', default=default_secret_key)
+
+
 
