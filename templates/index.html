@@ -1,0 +1,244 @@
+{% extends 'assets/main.html' %}
+{% load static %}
+{% block mainContent %}  
+<!-- ======= Our Services Section ======= -->
+    <section id="services" class="services sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Our Services</h2>
+        </div>
+
+        <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
+        {% for service in services %}
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item  position-relative">
+              <div class="icon">
+                <i class="{{service.icon}}"></i>
+              </div>
+              <h3>{{service.title}}</h3>
+              <p>{{service.description}}.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+        {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Our Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Testimonials</h2>
+        </div>
+
+        <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+          
+            {% for testimonial in testimonials %}
+              <div class="swiper-slide">
+                <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                    <div class="d-flex align-items-center">
+                      {% if "http" in testimonial.user_image %}
+                        <img src="{{testimonial.user_image }}" class="testimonial-img flex-shrink-0" alt="">
+                      {% else %}
+                        <img src="{% static testimonial.user_image %}" class="testimonial-img flex-shrink-0" alt="">
+                      {% endif %}
+                      <div>
+                        <h3>{{testimonial.username}}</h3>
+                        <h4>{{testimonial.user_job_title}}</h4>
+                        <div class="stars">
+                        {% for i in 'x'|ljust:testimonial.rating_count %}
+                            <i class="bi bi-star-fill"></i>
+                          
+                        {% endfor %}
+                        </div>
+                      </div>
+                   </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      {{ testimonial.review }}
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div>
+              </div><!-- End testimonial item -->
+            {% endfor %}
+          
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="content px-xl-5">
+              <h3>Frequently Asked <strong>Questions</strong></h3>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+
+            <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
+              {% for faq in faqs %}
+                <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-{{forloop.counter}}">
+                    <span class="num">{{forloop.counter}}.</span>
+                    {{faq.question}}
+                  </button>
+                </h3>
+                <div id="faq-content-{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    {{faq.answer}}
+                  </div>
+                </div>
+                </div><!-- # Faq item-->
+              {% endfor %}
+             
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Recent Blog Posts Section ======= -->
+    <section id="recent-posts" class="recent-posts sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Recent Blog Posts</h2>
+        </div>
+
+        <div class="row gy-4">
+          
+          {% for blog in recent_blogs %}
+            <div class="col-xl-4 col-md-6">
+              <article>
+                <div class="post-img">
+                  {% if "http" in blog.blog_image %}
+                    <img src="{{ blog.blog_image }}" class="img-fluid" alt="">
+                  {% else %}
+                    <img src="{% static blog.blog_image %}" class="img-fluid" alt="">
+                  {% endif %}
+                </div>
+
+                <p class="post-category">{{blog.category}}</p>
+
+                <h2 class="title">
+                  <a href="{% url 'blog_detail' blog_id=blog.id %}">{{ blog.title }}</a>
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <div class="post-meta">
+                    <p class="post-author">{{blog.author.first_name}} {{blog.author.last_name}}</p>
+                    <p class="post-date">
+                      <time datetime="2022-01-01">{{blog.created_at|date:"M j, Y"}}</time>
+                    </p>
+                  </div>
+                </div>
+
+              </article>
+            </div><!-- End post list item -->
+          {% endfor %}
+        </div><!-- End recent posts list -->
+
+      </div>
+    </section><!-- End Recent Blog Posts Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Contact</h2>
+        </div>
+
+        <div class="row gx-lg-0 gy-4">
+
+          <div class="col-lg-4">
+
+            <div class="info-container d-flex flex-column align-items-center justify-content-center">
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Location:</h4>
+                  <p>{{location}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <p>{{email}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Call:</h4>
+                  <p>{{phone}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-clock flex-shrink-0"></i>
+                <div>
+                  <h4>Open Hours:</h4>
+                  <p>{{open_hours}}</p>
+                </div>
+              </div><!-- End Info Item -->
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <form action="{% url 'contact_form' %}" method="post" role="form" class="php-email-form">
+            {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="7" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+{% endblock mainContent %}
