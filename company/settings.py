@@ -13,6 +13,14 @@ from decouple import config
 from pathlib import Path
 import os
 import certifi
+import secrets
+from django.core.exceptions import ImproperlyConfigured
+from environ import Env
+env = Env()
+env.read_env()
+default_secret_key = ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50))
+
+
 os.environ['SSL_CERT_FILE']= certifi.where()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +30,7 @@ print(f"\nBASE_DIR:{BASE_DIR}\n")
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY', default=default_secret_key)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
