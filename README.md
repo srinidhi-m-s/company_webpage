@@ -1,7 +1,7 @@
 Django Company Website:
 This project is a complete website developed using Django, built as part of the Udemy course "Django 5 - Build a Complete Website from Scratch to Deploy". The website is based on a Bootstrap version 5 template and is fully deployed on the internet.
 
-Website can be accessed here: https://srinidhimanohar.pythonanywhere.com
+Website can be accessed here: [https://srinidhimanohar.pythonanywhere.com](https://srinidhims.pythonanywhere.com/)
 
 Features:
 
